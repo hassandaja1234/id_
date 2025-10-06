@@ -1,12 +1,9 @@
 services:
   - type: web
     name: id-reader-api
-    env: python
+    env: docker
     plan: free
-    buildCommand: |
-      apt-get update && apt-get install -y tesseract-ocr libgl1
-      pip install -r requirements.txt
-    startCommand: uvicorn card_reader_api:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /docs
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
+      - key: PORT
+        value: 8000
